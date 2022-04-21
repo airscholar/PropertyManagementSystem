@@ -23,8 +23,8 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public Property createProperty(PropertyDTO propertyDTO) {
         Property property = this.propertyConverter.converToEntity(propertyDTO);
-        Property savedProperty = this.propertyRepository.save(property);
+        property = this.propertyRepository.save(property);
 
-        return savedProperty;
+        return property ;
     }
 }

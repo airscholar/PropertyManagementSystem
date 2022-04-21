@@ -4,19 +4,28 @@ import com.airscholar.propertymanagement.dto.PropertyDTO;
 import com.airscholar.propertymanagement.entity.Property;
 import com.airscholar.propertymanagement.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/")
 public class PropertyController {
 
+    private final PropertyService propertyService;
+
     @Autowired
-    private PropertyService propertyService;
+    PropertyController(PropertyService propertyService) {
+        this.propertyService = propertyService;
+    }
+
 
     @PostMapping("/properties")
-    private Property createProperty(@RequestBody()PropertyDTO propertyDTO){
+    private ResponseEntity<Property> createProperty(@RequestBody() PropertyDTO propertyDTO) {
         Property response = this.propertyService.createProperty(propertyDTO);
 
-        return response;
+        return new ResponseEntity(response, HttpStatus.CREATED);
     }
 }
