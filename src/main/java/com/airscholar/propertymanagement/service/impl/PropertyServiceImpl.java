@@ -39,10 +39,7 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public Property getPropertyById(Long id) {
         Optional<Property> property = this.propertyRepository.findById(id);
-        if(property.isPresent()) {
-            return property.get();
-        }
-        else return null;
+        return property.orElse(null);
     }
 
     @Override
