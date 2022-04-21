@@ -23,16 +23,37 @@ public class PropertyController {
 
 
     @PostMapping("/properties")
-    private ResponseEntity<Property> createProperty(@RequestBody() PropertyDTO propertyDTO) {
+    private ResponseEntity createProperty(@RequestBody() PropertyDTO propertyDTO) {
         Property response = this.propertyService.createProperty(propertyDTO);
 
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/properties")
-    private ResponseEntity<List<Property>> getAllProperties() {
+    private ResponseEntity getAllProperties() {
         List<Property> response = this.propertyService.getAllProperties();
 
-        return new ResponseEntity<List<Property>>(response, HttpStatus.OK);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/properties/{id}")
+    private ResponseEntity getAllProperties(@PathVariable Long id) {
+        Property response = this.propertyService.getPropertyById(id);
+
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/properties/{id}")
+    private ResponseEntity UpdateProperty(@PathVariable("id") Long Id, @RequestBody() PropertyDTO propertyDTO){
+        Property response = this.propertyService.updateProperty(Id, propertyDTO);
+
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/properties/{id}")
+    private ResponseEntity DeleteProperty(@PathVariable("id") Long Id){
+        this.propertyService.deleteProperty(Id);
+
+        return new ResponseEntity("Property deleted successfully!", HttpStatus.OK);
     }
 }

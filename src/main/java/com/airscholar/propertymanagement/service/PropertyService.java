@@ -9,5 +9,7 @@ public interface PropertyService {
 
     Property createProperty(PropertyDTO propertyDTO);
     List<Property> getAllProperties();
-
+    Property updateProperty(Long id, PropertyDTO propertyDTO);
+    void deleteProperty(Long id);
+    Property getPropertyById(Long id);
 }

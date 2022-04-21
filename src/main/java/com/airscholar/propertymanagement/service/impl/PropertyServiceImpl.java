@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {
@@ -33,5 +34,38 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public List<Property> getAllProperties() {
         return (List<Property>) this.propertyRepository.findAll();
+    }
+
+    @Override
+    public Property getPropertyById(Long id) {
+        Property property;
+        try{
+            property = this.propertyRepository.findById(id).get();
+        }catch(Exception e){
+            property = null;
+        }
+
+        return property;
+    }
+
+    @Override
+    public Property updateProperty(Long id, PropertyDTO propertyDTO) {
+        Property property = this.getPropertyById(id);
+        if(property != null){
+            Property propEntity = this.propertyConverter.converToEntity(propertyDTO);
+            propEntity.setId(property.getId());
+
+            property = this.propertyRepository.save(propEntity);
+        }
+
+        return property;
+    }
+
+    @Override
+    public void deleteProperty(Long id) {
+        Property property = this.getPropertyById(id);
+        if(property != null){
+            this.propertyRepository.delete(property);
+        }
     }
 }
