@@ -38,14 +38,11 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Property getPropertyById(Long id) {
-        Property property;
-        try{
-            property = this.propertyRepository.findById(id).get();
-        }catch(Exception e){
-            property = null;
+        Optional<Property> property = this.propertyRepository.findById(id);
+        if(property.isPresent()) {
+            return property.get();
         }
-
-        return property;
+        else return null;
     }
 
     @Override
