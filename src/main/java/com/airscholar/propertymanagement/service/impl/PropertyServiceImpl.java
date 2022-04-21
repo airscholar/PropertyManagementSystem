@@ -8,6 +8,8 @@ import com.airscholar.propertymanagement.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PropertyServiceImpl implements PropertyService {
 
@@ -26,5 +28,10 @@ public class PropertyServiceImpl implements PropertyService {
         property = this.propertyRepository.save(property);
 
         return property ;
+    }
+
+    @Override
+    public List<Property> getAllProperties() {
+        return (List<Property>) this.propertyRepository.findAll();
     }
 }

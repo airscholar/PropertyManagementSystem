@@ -28,4 +28,11 @@ public class PropertyController {
 
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
+
+    @GetMapping("/properties")
+    private ResponseEntity<List<Property>> getAllProperties() {
+        List<Property> response = this.propertyService.getAllProperties();
+
+        return new ResponseEntity<List<Property>>(response, HttpStatus.OK);
+    }
 }
